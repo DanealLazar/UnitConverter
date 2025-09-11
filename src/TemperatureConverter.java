@@ -5,32 +5,30 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-
 import javax.swing.*;
 
 public class TemperatureConverter implements WindowListener, ActionListener {
 
-     static boolean isOpen = false;
+    static boolean isOpen = false;
 
-     JTextField currentTemp;
+    JTextField currentTemp;
 
-     JFrame frame;
+    JFrame frame;
 
-     JPanel buttonsPanel;
+    JPanel buttonsPanel;
 
-     JLabel currentTempLabel;
+    JLabel currentTempLabel;
 
-     JButton toTempButton;
+    JButton toTempButton;
 
-     JLabel toTempLabel;
+    JLabel toTempLabel;
 
-     JButton changeConversionButton;
+    JButton changeConversionButton;
 
-    
     public TemperatureConverter() {
 
         ImageIcon icon = new ImageIcon("UnitConverterFavion.png");
-    
+
         frame = new JFrame("Temperature Converter");
         frame.setSize(400, 400);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -52,7 +50,7 @@ public class TemperatureConverter implements WindowListener, ActionListener {
 
         currentTempLabel = new JLabel(" :Fahrenheit");
         currentTempLabel.setBounds(150, 50, 100, 30);
-        
+
         currentTemp = new JTextField();
         currentTemp.setBounds(50, 50, 100, 30);
 
@@ -63,24 +61,20 @@ public class TemperatureConverter implements WindowListener, ActionListener {
 
         toTempLabel = new JLabel(" 0 :Celsius");
         toTempLabel.setBounds(150, 100, 100, 30);
-        
+
         buttonsPanel.add(changeConversionButton);
         buttonsPanel.add(currentTemp);
         buttonsPanel.add(currentTempLabel);
         buttonsPanel.add(toTempButton);
         buttonsPanel.add(toTempLabel);
-        
 
         frame.add(buttonsPanel);
         frame.setVisible(true);
 
-
-
     }
 
-
-    public static boolean getOpen(){
-    return isOpen;
+    public static boolean getOpen() {
+        return isOpen;
     }
 
     public static void setOpen(boolean open) {
@@ -88,11 +82,11 @@ public class TemperatureConverter implements WindowListener, ActionListener {
     }
 
     public double celsiusToFahrenheit(double celsius) {
-        return (celsius * 9/5) + 32;
+        return (celsius * 9 / 5) + 32;
     }
 
     public double fahrenheitToCelsius(double fahrenheit) {
-        return (fahrenheit - 32) * 5/9;
+        return (fahrenheit - 32) * 5 / 9;
     }
 
     @Override
@@ -130,7 +124,6 @@ public class TemperatureConverter implements WindowListener, ActionListener {
 
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -143,11 +136,11 @@ public class TemperatureConverter implements WindowListener, ActionListener {
                 currentTempLabel.setText(" :Fahrenheit");
                 toTempLabel.setText(" 0 :Celsius");
                 toTempButton.setText("to Celsius");
-                
+
             }
         }
 
-        if(e.getActionCommand().equals("to Celsius") && currentTemp.getText() != null){
+        if (e.getActionCommand().equals("to Celsius") && currentTemp.getText() != null) {
             try {
                 double fahrenheitValue = Double.parseDouble(currentTemp.getText());
                 double celsiusValue = fahrenheitToCelsius(fahrenheitValue);
@@ -156,18 +149,18 @@ public class TemperatureConverter implements WindowListener, ActionListener {
                 toTempLabel.setText(String.format("%.2f :Celsius", celsiusValue));
             } catch (NumberFormatException ex) {
                 System.out.println("Invalid input. Please enter a valid number for Fahrenheit.");
-            
-        }
-             }else if(e.getActionCommand().equals("to Fahrenheit") && currentTemp.getText() != null){
-                try {
-                    double celsiusValue = Double.parseDouble(currentTemp.getText());
-                    double fahrenheitValue = celsiusToFahrenheit(celsiusValue);
-                    System.out.println(celsiusValue + " Celsius is " + fahrenheitValue + " Fahrenheit.");
-    
-                    toTempLabel.setText(String.format("%.2f :Fahrenheit", fahrenheitValue));
-                } catch (NumberFormatException ex) {
-                    System.out.println("Invalid input. Please enter a valid number for Celsius.");
-                }
+
             }
+        } else if (e.getActionCommand().equals("to Fahrenheit") && currentTemp.getText() != null) {
+            try {
+                double celsiusValue = Double.parseDouble(currentTemp.getText());
+                double fahrenheitValue = celsiusToFahrenheit(celsiusValue);
+                System.out.println(celsiusValue + " Celsius is " + fahrenheitValue + " Fahrenheit.");
+
+                toTempLabel.setText(String.format("%.2f :Fahrenheit", fahrenheitValue));
+            } catch (NumberFormatException ex) {
+                System.out.println("Invalid input. Please enter a valid number for Celsius.");
+            }
+        }
     }
 }
